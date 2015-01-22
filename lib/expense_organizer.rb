@@ -31,5 +31,12 @@ class Expense
     self.description().==(another_expense.description()) && self.amount.==(another_expense.amount) && self.day.==(another_expense.day) && (self.company).==(another_expense.company)
   end
 
-
+  define_singleton_method(:find) do |id|
+    Expense.all().each do |expense|
+      if(expense.id() == id)
+        @found_expense = expense
+      end
+    end
+    @found_expense
+  end
 end
