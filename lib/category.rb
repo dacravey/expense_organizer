@@ -36,19 +36,31 @@ class Category
     self.type().==(another_category.type())
   end
 
-  define_method(:spending_by_category) do
+  define_method(:percentage_by_category) do
+
+  end
+
+  define_method(:percentage_spending_by_category) do
     id1 = self.id
-    total = 0;
+    total_by_category = 0;
+    grand_total =0;
+    percentage = 0;
     result = DB.exec("SELECT expenses.* FROM
     categories JOIN expenses_categories ON (categories.id = expenses_categories.category_id)
     JOIN expenses ON (expenses_categories.expense_id = expenses.id)
     WHERE #{@id} = expenses_categories.category_id;")
 
-    result.each() do |expense|
-      total += expense.fetch("amount").to_f
-      binding.pry
+    array_of_expenses = Expense.all()
+
+    array_of_expenses.each do |expense|
+      grand_total += expense.amount
     end
-    total
+
+    result.each() do |expense|
+      total_by_category += expense.fetch("amount").to_f
+    end
+    percentage = total_by_category/grand_total
+
   end
 
 
