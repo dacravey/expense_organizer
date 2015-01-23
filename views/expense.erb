@@ -1,0 +1,25 @@
+<h1>Track Your Expenses</h1>
+
+<h1>Edit the <%= @expense.name() %> Transaction: </h1>
+
+<form action="/expense" method="post">
+  <input id="list_id" name="list_id" type="hidden" value="<%= @list.id() %>">
+
+  <input id="description" name="description" type="text" placeholder="Enter Task Description">
+
+  <button type="submit">Add task</button>
+</form>
+
+<% if @list.tasks().any?() %>
+<h3>Here are all the tasks in this list:</h3>
+
+<ul>
+  <% @list.tasks().each() do |task| %>
+  <li><%= task.description() %></li>
+  <% end %>
+</ul>
+<% else %>
+<p>There are no tasks yet!</p>
+<% end %>
+
+<a href="/">Return to Main Page</a>

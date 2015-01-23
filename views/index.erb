@@ -1,0 +1,25 @@
+<h1>Track Your Expenses</h1>
+
+
+<p>Add an expense to track:</p>
+
+<form action="/expense" method="post">
+  <input id="description" name="description" type="text">
+  <input id="amount" name="amount" type="text">
+  <input id="company" name="company" type="text">
+  <input id="day" name="day" type="text">
+
+  <button type="submit">Add Expense</button>
+</form>
+
+<% if @expenses.any?() %>
+<p>Click on an expense to edit it.</p>
+
+<ul>
+  <% @expenses.each do |expense| %>
+  <li><a href="/expense/<%= expense.id() %>"><%= expense.description() %></a></li>
+  <% end %>
+</ul>
+<% else %>
+<p>There are no expenses yet.</p>
+<% end %>
